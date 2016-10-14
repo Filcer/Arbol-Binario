@@ -54,7 +54,22 @@ bool Arbol::AddNodo(int dato)
 	return AddRec(dato,Raiz); //no se si la raiz esta bien escrita		
 }
 
-/*
+void Arbol::intercambio(Nodo* a, Nodo* aux) //escribir bien hijos derecho e izquierdo
+{
+	if(a->Hizq==NULL)
+	{
+		a->padre->Hder=NULL;
+		a->padre=aux->padre;
+		a->Hder=aux->Hder;
+		a->Hizq=aux->Hizq;
+		aux->Hizq->padre=a;
+		aux->Hder->padre=a;
+		aux->padre=a;
+		aux->Hizq=NULL;
+		aux->Hder=NULL;	
+	}
+}
+
 bool Arbol::ElimNodo(int ref)
 {
 	if (this->Raiz == NULL)
@@ -68,24 +83,43 @@ bool Arbol::ElimNodo(int ref)
 		std::cout<<"No existe el valor en el arbol"<<std::endl;
 		return false;
 	}
-	for (int i = 0 ; i < aux->Hijos.size() ; ++i)
-	{
-		aux->Padre->Hijos.push_back(aux->Hijos[i]);
-		aux->Hijos[i] =aux->Padre;
+	
+	if(aux.Hizq==NULL && aux.Hder==NULL) //aquí no sé como escribir el hijo derecho
+	{	if(aux->padre->Hizq==aux) //aquí no sé como escribir el hijo izquierdo
+			aux->padre->Hizq=NULL; //aquí tampoco
+		else
+			aux->padre->Hder=NULL; //aquí tampoco
+		aux->padre=NULL;
 	}
-	aux->Hijos.clear();
-	aux->Padre =NULL;
-	for (int i  = 0; i < aux->Padre->Hijos.size(); ++i)
-	{
-		if (aux == aux->Padre->Hijos[i])
-		{
-			aux->Padre->Hijos.erase(aux->Padre->Hijos.begin()+i);
-			return true;
+	
+	if(aux->Hizq!=NULL){ //escribir bien hijos derecho e izquierdo
+		if(aux->Hizq->Hder==NULL){
+		aux->padre->Hder=aux->Hizq;
+		aux->Hizq->Padre=aux->padre;
+		aux->padre=NULL;
+		aux->Hizq->Hder=aux->Hder;
+		aux->Hder->padre=aux->Hizq;
+		aux->Hder=NULL;
+		aux->Hizq=NULL;
 		}
+	else{
+		Nodo* a=aux->Hizq->Hder;
+		while(a->Hder!=NULL){
+		a=a->Hder;
+		}
+	     }
+	if(a->Hizq!=NULL){
+	a->Hizq->padre=a->padre;
+	a->padre->Hder=a->Hizq;
+	a->Hizq=NULL;
 	}
-	return false;
-}
+	intercambio(a,aux);
+	else{
+		intercambio(aux->Hder,aux);
+		return true;
+	}
 
+/*
 std::stack<NodoA*> Arbol::Camino(NodoA* aux)
 {
 	std::stack<NodoA*> Camino;
