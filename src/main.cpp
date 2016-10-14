@@ -1,5 +1,6 @@
 #include "Arbol.h"
 
+/*
 int main()
 {
 	// Creando el arbol a pura manita :v
@@ -49,3 +50,4 @@ int main()
 
 	return 0;
 }
+*/
