@@ -12,12 +12,11 @@
 class Arbol {
 private:
     NodoA* BusqRec(int ref, NodoA* aux);
-    int ImprimirRecursivo(NodoA* nodo);
 
 public:
     NodoA* Raiz;
     Arbol(int orig);
-    NodoA* BusqNodo(int ref);
+    NodoA* Buscar(int ref);
     bool AddNodo(int ref, int aux);
     bool ElimNodo(int ref);
     std::stack<NodoA*> Camino(NodoA* aux);

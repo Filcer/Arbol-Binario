@@ -11,9 +11,10 @@
 class NodoA {
 
 public:
-    int dato;
-    std::vector<NodoA*> Hijos;
+    int Dato;
+    NodoA* Hder;
+    NodoA* Hizq;
     NodoA* Padre;
-    NodoA(int dato);
-    NodoA(int dato, NodoA* padre);
+    NodoA(int Dato);
+    NodoA(int Dato, NodoA* Padre);
 };
