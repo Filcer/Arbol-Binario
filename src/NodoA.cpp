@@ -2,12 +2,12 @@
 
 NodoA::NodoA(int dato)
 {
-	this->dato = dato;
-	this->Padre = NULL;
+    this->dato = dato;
+    this->Padre = NULL;
 }
 
-NodoA::NodoA(int dato , NodoA* padre)
+NodoA::NodoA(int dato, NodoA* padre)
 {
-	this->dato = dato;
-	this->Padre = padre;
+    this->dato = dato;
+    this->Padre = padre;
 }

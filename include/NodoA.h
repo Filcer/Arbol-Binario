@@ -3,20 +3,17 @@
    
    Descripción: En esta clase se encuentran lo métodos que determinan la creación 
    de un nodo y sus apuntadores correspondientes.
-   
-	    */
+*/
 
 #include <iostream>
 #include <vector>
 
-class NodoA
-{
+class NodoA {
 
 public:
-	int dato;
-	std::vector<NodoA*> Hijos; 
-	NodoA* Padre;
-	NodoA(int dato);
-	NodoA(int dato , NodoA* padre);
-  
+    int dato;
+    std::vector<NodoA*> Hijos;
+    NodoA* Padre;
+    NodoA(int dato);
+    NodoA(int dato, NodoA* padre);
 };
