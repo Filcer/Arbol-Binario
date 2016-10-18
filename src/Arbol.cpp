@@ -10,53 +10,58 @@ NodoA* Arbol::Buscar(int ref)
 {
     if (this->Raiz == NULL)
         return NULL;
-    return BusqRec(ref, Raiz)
+    return BusqRec(ref, this->Raiz);
 }
 
 NodoA* Arbol::BusqRec(int ref, NodoA* aux)
 {
-    NodoA* busqueda = aux;
     NodoA* res;
-    if (busqueda->Dato == ref)
-        return busqueda;
-    if (ref < busqueda->Dato && busqueda->Hizq != NULL)
-        res = BusqRec(ref, busqueda->Hizq);
-    else if (ref > busqueda->Dato && busqueda->Hder != NULL)
-        res = BusqRec(ref, busqueda->Hder);
+    if (aux->Dato == ref)
+        return aux;
+    if (ref < aux->Dato && aux->Hizq != NULL) {
+        res = BusqRec(ref, aux->Hizq);
+    } else if (ref > aux->Dato && aux->Hder != NULL) {
+        res = BusqRec(ref, aux->Hder);
+    } else {
+        res = NULL;
+    }
+    return res;
 }
 
 // Agregar nodos al árbol
-bool Arbol::AddNodo(int Dato)
+bool Arbol::AddNodo(int dato)
 {
-    if (Buscar(Dato) != NULL)
+    if (Buscar(dato) != NULL)
         return true;
-    return AddRec(Dato, this->Raiz); //no se si la raiz esta bien escrita
+    return AddRec(dato, this->Raiz);
 }
 
-bool Arbol::AddRec(int Dato, NodoA* aux)
+bool Arbol::AddRec(int dato, NodoA* aux)
 {
     bool res;
-    if (Dato < aux->Dato) {
-        if (aux->Hizq != NULL)
-            res = AddRec(Dato, aux->Hizq);
-        else {
-            NodoA* = NodoA(Dato, aux);
-            aux->Hizq = NodoA;
+    if (dato < aux->Dato) {
+        if (aux->Hizq != NULL) {
+            res = AddRec(dato, aux->Hizq);
+            return res;
+        } else {
+            NodoA* nodo = new NodoA(dato, aux);
+            aux->Hizq = nodo;
             return true;
         }
-    } else if (Dato > aux->Dato) {
-        if (aux->Hder != NULL)
-            res = AddRec(Dato, aux->Hder) else
-            {
-                NodoA* nodo = NodoA(Dato, aux);
-                aux->Hder = nodo;
-                return true;
-            }
-        return false;
+    } else if (dato > aux->Dato) {
+        if (aux->Hder != NULL) {
+            res = AddRec(dato, aux->Hder);
+            return res;
+        } else {
+            NodoA* nodo = new NodoA(dato, aux);
+            aux->Hder = nodo;
+            return true;
+        }
     }
+    return false;
 }
 
-void Arbol::intercambio(NodoA* a, NodoA* aux) //escribir bien hijos derecho e izquierdo
+void Arbol::Intercambio(NodoA* a, NodoA* aux)
 {
     if (a->Hizq == NULL) {
         a->Padre->Hder = NULL;
@@ -73,26 +78,21 @@ void Arbol::intercambio(NodoA* a, NodoA* aux) //escribir bien hijos derecho e iz
 
 bool Arbol::ElimNodo(int ref)
 {
-    if (this->Raiz == NULL) {
-        std::cout << "No existe el valor en el arbol" << std::endl;
-        return false;
-    }
-    NodoA* aux = BusqNodo(ref);
+    NodoA* aux = Buscar(ref);
     if (aux == NULL) {
         std::cout << "No existe el valor en el arbol" << std::endl;
         return false;
     }
 
-    if (aux->Hizq == NULL && aux->Hder == NULL) //aquí no sé como escribir el hijo derecho
-    {
-        if (aux->Padre->Hizq == aux) //aquí no sé como escribir el hijo izquierdo
-            aux->Padre->Hizq = NULL; //aquí tampoco
+    if (aux->Hizq == NULL && aux->Hder == NULL) {
+        if (aux->Padre->Hizq == aux)
+            aux->Padre->Hizq = NULL;
         else
-            aux->Padre->Hder = NULL; //aquí tampoco
+            aux->Padre->Hder = NULL;
         aux->Padre = NULL;
     }
-
-    if (aux->Hizq != NULL) { //escribir bien hijos derecho e izquierdo
+    NodoA* a;
+    if (aux->Hizq != NULL) {
         if (aux->Hizq->Hder == NULL) {
             aux->Padre->Hder = aux->Hizq;
             aux->Hizq->Padre = aux->Padre;
@@ -102,7 +102,7 @@ bool Arbol::ElimNodo(int ref)
             aux->Hder = NULL;
             aux->Hizq = NULL;
         } else {
-            NodoA* a = aux->Hizq->Hder;
+            a = aux->Hizq->Hder;
             while (a->Hder != NULL) {
                 a = a->Hder;
             }
@@ -111,57 +111,37 @@ bool Arbol::ElimNodo(int ref)
             a->Hizq->Padre = a->Padre;
             a->Padre->Hder = a->Hizq;
             a->Hizq = NULL;
-        }
-        intercambio(a, aux);
-        else
-        {
-            intercambio(aux->Hder, aux);
+            Intercambio(a, aux);
+        } else {
+            Intercambio(aux->Hder, aux);
             return true;
         }
-
-    /*
-std::stack<NodoA*> Arbol::Camino(NodoA* aux)
-{
-	std::stack<NodoA*> Camino;
-	while (aux != Raiz){
-		Camino.push(aux);
-		aux = aux->Padre;
-	}
-	return Camino;
+    }
 }
 
-NodoA* Arbol::BusqNodo(int ref)
-{
-	if(Raiz == NULL)
-	{
-		std::cout<<"No existen elementos en el arbol"<<std::endl;
-		return NULL;
-	}
-	return BusqRec(ref,Raiz);
-}
-
-NodoA* Arbol::BusqRec(int ref, NodoA* aux)
-{
-	NodoA* Busque = aux;
-	NodoA* Res;
-	if (Busque->Dato ==ref)
-		return Busque;
-	if (Busque->Hijos.empty()) 
-		return NULL;
-	for (int i = 0 ; i < Busque->Hijos.size() ; ++i){
-		Res  = BusqRec(ref, Busque->Hijos[i]);
-		if (Res != NULL)
-			return Res;			
-	}
-	return NULL;
-}
-
+// Impresión del árbol
 void Arbol::Imprimir()
 {
-	if (Raiz == NULL)
-	{
-		cout << "El árbol está vacío" << endl;
-	}
+    if (Raiz == NULL) {
+        std::cout << "El árbol está vacío" << std::endl;
+    } else {
+        ImprimirRec(this->Raiz, 0);
+    }
 }
 
-*/
+void Arbol::ImprimirRec(NodoA* nodo, int espacios)
+{
+    if (nodo->Hder != NULL)
+        ImprimirRec(nodo->Hder, espacios + 1);
+    for (int i = 0; i < espacios; i++) {
+        std::cout << "      ";
+    }
+    if (nodo != NULL) {
+        std::cout << nodo->Dato;
+        if (nodo->Hizq != NULL || nodo->Hder != NULL)
+            std::cout << "  {";
+        std::cout << "\n";
+    }
+    if (nodo->Hizq != NULL)
+        ImprimirRec(nodo->Hizq, espacios + 1);
+}

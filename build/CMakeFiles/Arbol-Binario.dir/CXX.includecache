@@ -1,0 +1,28 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/Arbol.h
+NodoA.h
+../include/NodoA.h
+
+../include/NodoA.h
+iostream
+-
+
+/home/daniel/Documentos/Algoritmos y Estructuras de Datos/Arbol-Binario/src/Arbol.cpp
+Arbol.h
+/home/daniel/Documentos/Algoritmos y Estructuras de Datos/Arbol-Binario/src/Arbol.h
+
+/home/daniel/Documentos/Algoritmos y Estructuras de Datos/Arbol-Binario/src/NodoA.cpp
+NodoA.h
+/home/daniel/Documentos/Algoritmos y Estructuras de Datos/Arbol-Binario/src/NodoA.h
+
+/home/daniel/Documentos/Algoritmos y Estructuras de Datos/Arbol-Binario/src/main.cpp
+Arbol.h
+/home/daniel/Documentos/Algoritmos y Estructuras de Datos/Arbol-Binario/src/Arbol.h
+

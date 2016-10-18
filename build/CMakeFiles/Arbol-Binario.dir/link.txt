@@ -1,0 +1,1 @@
+/usr/bin/c++   -O2 -g -DNDEBUG   CMakeFiles/Arbol-Binario.dir/src/NodoA.cpp.o CMakeFiles/Arbol-Binario.dir/src/Arbol.cpp.o CMakeFiles/Arbol-Binario.dir/src/main.cpp.o  -o Arbol-Binario -rdynamic 

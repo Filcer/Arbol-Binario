@@ -6,7 +6,6 @@
 */
 
 #include <iostream>
-#include <vector>
 
 class NodoA {
 

@@ -6,19 +6,20 @@
    de busqueda de un dato. 
 */
 
-#include <stack>
 #include "NodoA.h"
 
 class Arbol {
 private:
     NodoA* BusqRec(int ref, NodoA* aux);
+    bool AddRec(int dato, NodoA* aux);
+    void ImprimirRec(NodoA* nodo, int espacios);
 
 public:
     NodoA* Raiz;
     Arbol(int orig);
     NodoA* Buscar(int ref);
-    bool AddNodo(int ref, int aux);
+    bool AddNodo(int dato);
     bool ElimNodo(int ref);
-    std::stack<NodoA*> Camino(NodoA* aux);
+    void Intercambio(NodoA* a, NodoA* aux);
     void Imprimir();
 };
