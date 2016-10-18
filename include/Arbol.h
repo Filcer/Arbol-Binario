@@ -8,18 +8,20 @@
 
 #include "NodoA.h"
 
-class Arbol {
-private:
-    NodoA* BusqRec(int ref, NodoA* aux);
-    bool AddRec(int dato, NodoA* aux);
-    void ImprimirRec(NodoA* nodo, int espacios);
-
+class Arbol
+{
 public:
     NodoA* Raiz;
+
     Arbol(int orig);
     NodoA* Buscar(int ref);
     bool AddNodo(int dato);
     bool ElimNodo(int ref);
     void Intercambio(NodoA* a, NodoA* aux);
     void Imprimir();
+
+private:
+    NodoA* BusqRec(int ref, NodoA* aux);
+    bool AddRec(int dato, NodoA* aux);
+    void ImprimirRec(NodoA* nodo, int espacios);
 };

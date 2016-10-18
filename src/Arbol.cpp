@@ -61,21 +61,7 @@ bool Arbol::AddRec(int dato, NodoA* aux)
     return false;
 }
 
-void Arbol::Intercambio(NodoA* a, NodoA* aux)
-{
-    if (a->Hizq == NULL) {
-        a->Padre->Hder = NULL;
-        a->Padre = aux->Padre;
-        a->Hder = aux->Hder;
-        a->Hizq = aux->Hizq;
-        aux->Hizq->Padre = a;
-        aux->Hder->Padre = a;
-        aux->Padre = a;
-        aux->Hizq = NULL;
-        aux->Hder = NULL;
-    }
-}
-
+// Eliminar nodos
 bool Arbol::ElimNodo(int ref)
 {
     NodoA* aux = Buscar(ref);
@@ -116,6 +102,21 @@ bool Arbol::ElimNodo(int ref)
             Intercambio(aux->Hder, aux);
             return true;
         }
+    }
+}
+
+void Arbol::Intercambio(NodoA* a, NodoA* aux)
+{
+    if (a->Hizq == NULL) {
+        a->Padre->Hder = NULL;
+        a->Padre = aux->Padre;
+        a->Hder = aux->Hder;
+        a->Hizq = aux->Hizq;
+        aux->Hizq->Padre = a;
+        aux->Hder->Padre = a;
+        aux->Padre = a;
+        aux->Hizq = NULL;
+        aux->Hder = NULL;
     }
 }
 
